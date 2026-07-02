@@ -31,6 +31,7 @@ export default function App() {
   const [llmResult, setLlmResult] = useState(null)
   const [llmLoading, setLlmLoading] = useState(false)
   const [llmError, setLlmError] = useState(null)
+  const [llmLatency, setLlmLatency] = useState(null)
 
   const [newType, setNewType] = useState(EVENT_TYPES[0])
   const [newDetail, setNewDetail] = useState('')
@@ -54,6 +55,7 @@ export default function App() {
   function clearLLM() {
     setLlmResult(null)
     setLlmError(null)
+    setLlmLatency(null)
   }
 
   function loadPreset(preset) {
@@ -89,12 +91,15 @@ export default function App() {
     if (events.length === 0) return
     setLlmLoading(true)
     setLlmError(null)
+    const started = performance.now()
     try {
       const res = await callLLMClassifier({ events, isReturning })
       setLlmResult(res)
+      setLlmLatency(Math.round(performance.now() - started))
     } catch (e) {
       setLlmError(e.message)
       setLlmResult(null)
+      setLlmLatency(null)
     } finally {
       setLlmLoading(false)
     }
@@ -142,6 +147,7 @@ export default function App() {
             llmResult={llmResult}
             llmLoading={llmLoading}
             llmError={llmError}
+            llmLatency={llmLatency}
             onRunLLM={runLLM}
             action={action}
             hasEvents={events.length > 0}

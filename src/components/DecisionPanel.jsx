@@ -8,6 +8,7 @@ export default function DecisionPanel({
   llmResult,
   llmLoading,
   llmError,
+  llmLatency,
   onRunLLM,
   action,
   hasEvents,
@@ -48,6 +49,9 @@ export default function DecisionPanel({
                   <>
                     <StateBadge state={llmResult.classification} />
                     <span className="font-mono text-xs text-slate-400">{llmResult.confidence}%</span>
+                    {llmLatency != null && (
+                      <span className="font-mono text-[10px] text-slate-500">· {llmLatency}ms</span>
+                    )}
                   </>
                 ) : (
                   <span className="text-xs text-slate-500">not run</span>

@@ -6,7 +6,7 @@ evidence, a confidence score, and a recommended nudge. A live simulator lets you
 load preset sessions or add/delete events and watch the classification update in
 real time.
 
-Demo: `<vercel-url>` · Groq model: `llama-3.3-70b-versatile`
+Groq model: `llama-3.3-70b-versatile`
 
 ## The idea: hybrid, not an LLM wrapper
 
